@@ -1,0 +1,16 @@
+[
+{
+  "modid": "fancycrafting",
+  "name": "FancyCrafting",
+  "description": "Better crafting tables",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["DeltaWhy"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
