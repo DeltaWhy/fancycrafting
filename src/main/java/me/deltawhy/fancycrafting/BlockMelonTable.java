@@ -6,21 +6,21 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityEnchantmentTable;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
 import java.util.Random;
 
-public class BlockTable extends BlockContainer {
+public class BlockMelonTable extends BlockContainer {
     public IIcon iconTop;
     public IIcon iconSide;
-    public IIcon iconFront;
+    public IIcon iconBottom;
 
-    protected BlockTable(Material material) {
+    protected BlockMelonTable(Material material) {
         super(material);
     }
 
@@ -28,7 +28,7 @@ public class BlockTable extends BlockContainer {
     public void registerBlockIcons(IIconRegister reg) {
         this.iconTop = reg.registerIcon(this.getTextureName()+"_top");
         this.iconSide = reg.registerIcon(this.getTextureName()+"_side");
-        this.iconFront = reg.registerIcon(this.getTextureName()+"_front");
+        this.iconBottom = reg.registerIcon(this.getTextureName()+"_bottom");
     }
 
     @Override
@@ -36,9 +36,7 @@ public class BlockTable extends BlockContainer {
         if (side == 1) {
             return this.iconTop;
         } else if (side == 0) {
-            return Blocks.planks.getIcon(0, 0);
-        } else if (side == 2 || side == 4) {
-            return this.iconFront;
+            return this.iconBottom;
         } else {
             return this.iconSide;
         }

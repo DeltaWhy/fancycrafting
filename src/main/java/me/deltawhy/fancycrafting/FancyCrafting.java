@@ -22,19 +22,26 @@ public class FancyCrafting {
     public static FancyCrafting instance;
 
     public static Block table;
+    public static Block melonTable;
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         table = new BlockTable(Material.wood).setHardness(2.5F)
                 .setStepSound(Block.soundTypeWood).setBlockName("fancyTable")
-                .setCreativeTab(CreativeTabs.tabDecorations).setBlockTextureName("fancycrafting:fancyTable");
+                .setCreativeTab(CreativeTabs.tabDecorations).setBlockTextureName("minecraft:crafting_table");
+        melonTable = new BlockMelonTable(Material.wood).setHardness(2.5F)
+                .setStepSound(Block.soundTypeWood).setBlockName("melonTable")
+                .setCreativeTab(CreativeTabs.tabDecorations).setBlockTextureName("fancycrafting:melonTable");
     }
 
     @EventHandler
     public void load(FMLInitializationEvent event) {
         GameRegistry.registerBlock(table, "fancyTable");
+        GameRegistry.registerBlock(melonTable, "melonTable");
+        ItemStack vanillaTable = new ItemStack(Blocks.crafting_table);
+        GameRegistry.addShapelessRecipe(new ItemStack(table), vanillaTable);
         ItemStack melon = new ItemStack(Blocks.melon_block);
-        GameRegistry.addShapelessRecipe(new ItemStack(table), melon, melon, melon, melon);
+        GameRegistry.addShapelessRecipe(new ItemStack(melonTable), melon, melon, melon, melon);
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
         GameRegistry.registerTileEntity(TileEntityTable.class, "fancycrafting.tileentitytable");
         if (Loader.isModLoaded("NotEnoughItems")) {
