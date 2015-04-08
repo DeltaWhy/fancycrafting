@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.Random;
 
@@ -51,6 +52,7 @@ public class BlockTable extends BlockContainer {
         if (tileEntity == null || player.isSneaking()) {
             return false;
         }
+        if (world.isSideSolid(x, y+1, z, ForgeDirection.DOWN)) return true;
         player.openGui(FancyCrafting.instance, 0, world, x, y, z);
         return true;
     }
