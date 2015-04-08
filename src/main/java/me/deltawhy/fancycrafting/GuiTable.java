@@ -9,7 +9,6 @@ import org.lwjgl.opengl.GL11;
 
 public class GuiTable extends GuiContainer {
     private static final ResourceLocation craftingTableGuiTextures = new ResourceLocation("textures/gui/container/crafting_table.png");
-    private static final String __OBFID = "CL_00000750";
 
     public GuiTable(InventoryPlayer player, TileEntityTable tileEntityTable)
     {

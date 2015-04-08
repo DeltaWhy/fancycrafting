@@ -1,5 +1,6 @@
 package me.deltawhy.fancycrafting;
 
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -8,6 +9,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import me.deltawhy.fancycrafting.plugins.IPlugin;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -35,6 +37,13 @@ public class FancyCrafting {
         GameRegistry.addShapelessRecipe(new ItemStack(table), melon, melon, melon, melon);
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
         GameRegistry.registerTileEntity(TileEntityTable.class, "fancycrafting.tileentitytable");
+        if (Loader.isModLoaded("NotEnoughItems")) {
+            try {
+                ((IPlugin) Class.forName("me.deltawhy.fancycrafting.plugins.NEIPlugin").newInstance()).load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @EventHandler
