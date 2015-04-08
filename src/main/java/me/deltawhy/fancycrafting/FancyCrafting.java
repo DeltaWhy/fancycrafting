@@ -4,6 +4,7 @@ import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -23,6 +24,9 @@ public class FancyCrafting {
 
     public static Block table;
     public static Block melonTable;
+
+    @SidedProxy(clientSide="me.deltawhy.fancycrafting.ClientProxy", serverSide="me.deltawhy.fancycrafting.DedicatedServerProxy")
+    public static CommonProxy proxy;
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
@@ -44,7 +48,7 @@ public class FancyCrafting {
         GameRegistry.addShapelessRecipe(new ItemStack(melonTable), melon, melon, melon, melon);
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
         GameRegistry.registerTileEntity(TileEntityTable.class, "fancycrafting.tileentitytable");
-        if (Loader.isModLoaded("NotEnoughItems")) {
+        if (Loader.isModLoaded("NotEnoughItems") && isClient()) {
             try {
                 ((IPlugin) Class.forName("me.deltawhy.fancycrafting.plugins.NEIPlugin").newInstance()).load();
             } catch (Exception e) {
@@ -56,5 +60,9 @@ public class FancyCrafting {
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
 
+    }
+
+    public static boolean isClient() {
+        return proxy.isClient();
     }
 }
